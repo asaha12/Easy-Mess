@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Boarder Dashboard - {{ active_month.name }}</h3>
+
+<div class="row mb-3">
+  <div class="col-md-4">
+    <div class="card bg-light p-3">
+      <h5>Total Bazar Cost: {{ total_bazar }}</h5>
+      <h5>Total Meals: {{ total_meals }}</h5>
+      <h5>Meal Rate: {{ meal_rate }}</h5>
+    </div>
+  </div>
+</div>
+
+<h4 class="mt-4">My Summary</h4>
+<table class="table table-bordered">
+  <tr><th>Total Meals</th><td>{{ total_meal_count }}</td></tr>
+  <tr><th>Total Deposit</th><td>{{ total_deposit }}</td></tr>
+  <tr><th>Meal Cost</th><td>{{ meal_cost }}</td></tr>
+  <tr class="{% if balance < 0 %}table-danger{% endif %}">
+    <th>Balance</th><td>{{ balance }}</td>
+  </tr>
+</table>
+{% endblock %}

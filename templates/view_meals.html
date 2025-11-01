@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>All Meals - {{ active_month.name }}</h3>
+<table class="table table-striped mt-3">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>User</th>
+      <th>Morning</th>
+      <th>Lunch</th>
+      <th>Dinner</th>
+      <th>Total</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for m in meals %}
+    <tr>
+      <td>{{ m.date }}</td>
+      <td>{{ m.user.name }} ({{ m.user.role }})</td>
+      <td>{{ m.morning }}</td>
+      <td>{{ m.lunch }}</td>
+      <td>{{ m.dinner }}</td>
+      <td>{{ m.morning + m.lunch + m.dinner }}</td>
+      <td>
+        <a href="{{ url_for('delete_meal', id=m.id) }}" class="btn btn-sm btn-danger">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

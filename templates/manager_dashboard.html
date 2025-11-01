@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Manager Dashboard - {{ active_month.name }}</h3>
+
+<div class="row mb-3">
+  <div class="col-md-4">
+    <div class="card bg-light p-3">
+      <h5>Total Bazar Cost: {{ total_bazar }}</h5>
+      <h5>Total Meals: {{ total_meals }}</h5>
+      <h5>Meal Rate: {{ meal_rate }}</h5>
+    </div>
+  </div>
+</div>
+
+<h4 class="mt-4">User Summary</h4>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Role</th>
+    <th>Total Meal</th>
+    <th>Deposit</th>
+    <th>Meal Cost</th>
+    <th>Balance</th>
+  </tr>
+</thead>
+<tbody>
+  {% for s in stats %}
+  <tr class="{% if s.balance < 0 %}table-danger{% endif %}">
+    <td>{{ s.name }}</td>
+    <td>{{ s.role }}</td>
+    <td>{{ s.total_meal }}</td>
+    <td>{{ s.deposit }}</td>
+    <td>{{ s.meal_cost }}</td>
+    <td>{{ s.balance }}</td>
+  </tr>
+  {% endfor %}
+</tbody>
+</table>
+{% endblock %}
