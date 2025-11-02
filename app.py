@@ -4,10 +4,13 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from datetime import date
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secretkey'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mess.db'  # local db, will use PostgreSQL in Render
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///mess.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -547,3 +550,4 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
     app.run(debug=True)
+
