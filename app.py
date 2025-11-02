@@ -10,6 +10,11 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secretkey'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///mess.db')
+# Fix for Render / Neon URLs that start with postgres://
+uri = app.config['SQLALCHEMY_DATABASE_URI']
+if uri and uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
@@ -551,6 +556,7 @@ with app.app_context():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
 
 
